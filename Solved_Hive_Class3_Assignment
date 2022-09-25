@@ -370,10 +370,20 @@ White Plains    4       85555.98962402344
 
 h. Find a month for each year in which maximum number of quantities were sold
 
-hive> SELECT year_id,
-    > month_id,
-    > MAX(quantityordered) AS qty
+hive> SELECT year_id,month_id,total_quantity
+    > FROM
+    > (SELECT year_id, month_id, SUM(quantityordered) as total_quantity,
+    > row_number () over
+    > (
+    > PARTITION BY year_id
+    > ORDER BY total_quantity DESC
+    > ) AS rn
     > FROM sales_order_data_orc
-    > GROUP BY year_id, month_id;
+    > GROUP BY year_id, month_id
+    > ) AS main
+    > WHERE rn =1;
     
 OUTPUT:
+2003    11      10179
+2004    11      10678
+2005    5       4357
