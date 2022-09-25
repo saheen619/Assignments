@@ -119,7 +119,60 @@ S18_3232   52
 
 
 c. Calculate the total sales for each quarter
+
+hive> SELECT qtr_id,
+    > SUM(sales) AS total_sales
+    > FROM sales_order_data_orc
+    > GROUP BY qtr_id;
+    
+OUTPUT:
+qtr_id  total_sales
+1       2350817.726501465
+2       2048120.3029174805
+3       1758910.808959961
+4       3874780.010925293
+
+
 d. In which quarter sales was minimum
+
+hive> SELECT qtr_id,
+    > SUM(sales) AS total_sales
+    > FROM sales_order_data_orc
+    > GROUP BY qtr_id
+    > ORDER BY total_sales
+    > LIMIT 1;
+    
+OUTPUT:
+qtr_id  total_sales
+3       1758910.808959961
+
+    
 e. In which country sales was maximum and in which country sales was minimum
+
+Country with Maximum Sales -
+hive> SELECT country,
+    > SUM(sales) AS total_sales
+    > FROM sales_order_data_orc
+    > GROUP BY country
+    > ORDER BY total_sales DESC
+    > LIMIT 1;
+
+OUTPUT:
+country total_sales
+USA     3627982.825744629
+
+Country with Maximum Sales -
+hive> SELECT country,
+    > SUM(sales) AS total_sales
+    > FROM sales_order_data_orc
+    > GROUP BY country
+    > ORDER BY total_sales
+    > LIMIT 1;
+    
+OUTPUT:
+country total_sales
+Ireland 57756.43029785156
+
+
 f. Calculate quarterly sales for each city
 h. Find a month for each year in which maximum number of quantities were sold
