@@ -1,2 +1,2 @@
-Hive_Assignment-1
+Hive_Assignment_1
 - Assignment from Big_Data_Bootcamp
